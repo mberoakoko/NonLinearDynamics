@@ -23,7 +23,9 @@ add_executable(NonLinearDynamics main.cpp
         src/integrators/multistep_integrator.hpp
         src/threading/threading_ops.hpp
         src/sqp_solvers/newton_method.hpp
-        src/utils/util.hpp)
+        src/utils/util.hpp
+        src/gui_dashboard/dashboard.hpp
+        src/gui_dashboard/dashboard_ops/app_primitives.hpp)
 
 target_include_directories(NonLinearDynamics
         PUBLIC
@@ -34,5 +36,4 @@ target_link_libraries(NonLinearDynamics PUBLIC
         xtensor
         SDL3::SDL3
         imgui
-        implot
 )

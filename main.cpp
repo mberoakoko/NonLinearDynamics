@@ -5,6 +5,9 @@
 #include <xtensor/xarray.hpp>
 #include <xtensor/xrandom.hpp>
 #include <xtensor/xview.hpp>
+
+#include "src/systems/concrete_systems.hpp"
+#include "src/gui_dashboard/dashboard.hpp"
 struct time_mesh {
     double dt;
     double t_final;
@@ -72,12 +75,37 @@ auto views_demo() -> void {
     std::cout << xt::print_options::precision(0) << neg_index_view << std::endl;
 }
 
+auto play_with_vectors() -> void {
+    xt::xarray<double> my_array = {1, 2};
+    std::cout << xt::print_options::precision(5) << my_array << std::endl;
+    std::vector<std::size_t> arr_shape = {10};
+    xt::xarray<double> some_vec(arr_shape);
+    some_vec.fill(10);
+    std::cout << xt::print_options::precision(5) << some_vec << std::endl;
+    some_vec(0) = 1000.2;
+    std::cout << xt::print_options::precision(5) << some_vec << std::endl;
+}
+
+auto test_lotkavoltera() -> void {
+    Systems::LotkaVolterra lotka{{.alpha = 1, .beta = 2, .gamma = 3, .delta = 10.1}};
+    auto result = lotka.update(0, {1, 2}, std::nullopt);
+    std::cout << xt::print_options::precision(5) << result << std::endl;
+}
+
+auto get_name() -> std::optional<std::string> {
+    if (std::rand() > 0.5) {
+        return std::optional<std::string>("123");
+    };
+    return std::nullopt;
+}
+
+auto usage() -> void {
+    auto value = get_name();
+    std::cout << value.value_or("this thing") << std::endl;
+}
+
 int main() {
-    force_eval();
-
-    testing_standerd_libfuncs();
-    test_creation();
-
-    views_demo();
+    Application::Dashboard dashboard {};
+    dashboard.run();
     return 0;
 }
