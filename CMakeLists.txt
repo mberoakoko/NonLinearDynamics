@@ -11,7 +11,7 @@ FetchContent_Declare(
         imgui
         GIT_REPOSITORY "https://github.com/ocornut/imgui.git"
         # docking-latest
-        GIT_TAG docking
+        GIT_TAG v1.91.8
 )
 add_subdirectory(vendor/imgui)
 add_subdirectory(vendor/sdl)
@@ -27,13 +27,17 @@ add_executable(NonLinearDynamics main.cpp
         src/gui_dashboard/dashboard.hpp
         src/gui_dashboard/dashboard_ops/app_primitives.hpp)
 
+target_link_libraries(NonLinearDynamics PUBLIC
+        xtensor
+        SDL3::SDL3
+#        implot
+        imgui
+)
+target_link_libraries(NonLinearDynamics PUBLIC implot)
+
 target_include_directories(NonLinearDynamics
         PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${xtensor_INCLUDE_DIRS}
-)
-target_link_libraries(NonLinearDynamics PUBLIC
-        xtensor
-        SDL3::SDL3
-        imgui
+        ${implot_SOURCE_DIR}
 )

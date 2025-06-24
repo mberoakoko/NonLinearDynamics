@@ -109,7 +109,7 @@ namespace Application {
             ImGuiIO& io{ImGui::GetIO()};
 
             io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-            io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+            // io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
             ImGui_ImplSDL3_InitForSDLRenderer(window_->get_window(), window_->get_renderer());
             ImGui_ImplSDLRenderer3_Init(window_->get_renderer());
